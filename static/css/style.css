@@ -1,0 +1,384 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins',sans-serif;
+    background: #05110b;
+    color: white;
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    padding: 20px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, .35);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+}
+
+.logo {
+    font-size: 26px;
+    list-style: none;
+    gap: 35px;
+}
+
+nav li {
+    cursor: pointer;
+    transition: .3s;
+}
+
+nav li:hover {
+    color: #22c55e;
+}
+.hero {
+    position: relative;
+    height: 100vh;
+
+    background-image: url("/static/images/hero/castle-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    text-align: center;
+    background: rgba(0, 0, 0, .45);
+    padding: 60px;
+    border-radius: 25px;
+    backdrop-filter: blur(6px);
+}
+
+.overlay h1{
+    font-family: 'Cinzel',serif;
+    font-size:90px;
+    font-weight: 900;
+    letter-spacing: 5px;
+
+}
+
+.overlay span{
+
+    color:#22c55e;
+
+}
+
+.overlay p{
+
+    margin:25px;
+
+    font-size:25px;
+
+}
+
+button{
+    padding: 18px 45px;
+    border-radius: 50px;
+    border: none;
+    background: #22c55e;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .35s;
+    box-shadow: 0 0 30px rgba(34, 197, 94, .45);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+
+}
+
+button:hover{
+
+    transform: translateY(-4px);
+    box-shadow: 0 0 60px #22c55e;
+
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+    margin: 0;
+    padding: 0;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    background-image: url("/static/images/hero/castle-bg2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.overlay h1 {
+    text-shadow: 
+    0 0 12px rgba(255, 255, 255, .3),
+    0 0 40px rgba(34, 197, 94, .35)
+}
+
+.subtitle {
+    margin-top: 20px;
+    font-size: 22px;
+    color: #d9d9d9;
+    letter-spacing: 2px;
+}
+
+.scroll {
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    text-align:center;
+    color:white;
+    font-size:18px;
+    opacity:.8;
+    animation:bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%,100% {
+        transform: translate(-50%,0);
+    }
+    50% {
+        transform: translate(-50%,12px);
+    }
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+}
+
+.overlay {
+    position: relative;
+    z-index: 2;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-text {
+    font-family: 'Cinzel',serif;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.crown {
+    font-size: 30px;
+    filter: drop-shadow(0 0 8px gold);
+}
+
+nav a {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: .3s;
+    position: relative;
+}
+
+nav a:hover {
+    color: #22c55e;
+}
+
+/*เส้นใต้*/
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 0%;
+    height: 2px;
+    background: #22c55e;
+    transition: width .35s ease;
+}
+
+nav a:hover::after{
+    width: 100%;
+}
+
+.hero-content{
+    animation: fadeUp 1.5s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================================
+   ROYAL FAMILY
+=================================================== */
+
+.characters {
+    padding: 120px 80px;
+    background: #08150d;
+
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2{
+    font-size: 48px;
+    font-family: 'Cinzel',serif;
+    color: #22c55e;
+}
+
+.section-title p{
+    margin-top: 12px;
+    color: #cfcfcf;
+    font-size: 20px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 35px;
+}
+
+.card {
+    background: rgba(255, 255,255,.05);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: .35s;
+    text-align: center;
+    padding: 25px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 35px rgba(34, 197, 94, .45);
+    border-color: #22c55e;
+}
+
+.card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.card h3 {
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+.card span {
+    display: block;
+    margin: 12px 0 25px;
+    color: #bdbdbd;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer {
+    background: #050b07;
+    text-align: center;
+    padding: 60px 20px;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+footer h2 {
+    font-family: 'Cinzel',serif;
+    font-size: 38px;
+    color: #22c55e;
+}
+
+footer p {
+    color: #cfcfcf;
+    margin-top: 12px;
+}
+
+.footer-menu{
+    margin: 35px 0;
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+}
+
+.footer-menu a {
+    color: white;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.footer-menu a:hover{
+    color: #22c55E;
+}
+
+/* ======================================
+   ADMIN
+====================================== */
+
+.admin-form{
+
+    max-width:700px;
+
+    margin:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.admin-form input,
+.admin-form textarea{
+
+    padding:18px;
+
+    border-radius:12px;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    background:#102017;
+
+    color:white;
+
+    font-size:16px;
+
+}
+
+.admin-form textarea{
+
+    resize:vertical;
+
+}

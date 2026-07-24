@@ -1,0 +1,29 @@
+{%extends "base.html"%}
+
+{% block title %}
+Admin
+{%endblock%}
+
+{%block content%}
+
+<section class="characters">
+    <div class="section-title">
+        <h2>👑 Character Manager</h2>
+        <p>Add a new character into Gremlin Kingdom</p>
+    </div>
+    <form action="/add-character" method="post" class="admin-form">
+        <input type="text" name="name" placeholder="Character Name" required>
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="race" placeholder="Race">
+        <input type="number" name="age" placeholder="Age">
+        <textarea
+        name="description"
+        rows="5"
+        placeholder="Description"></textarea>
+        <input type="text" name="image" placeholder="Image filename">
+        <button type="submit"> SAVE CHARACTER</button>
+    </form>
+
+</section>
+
+{%endblock%}
