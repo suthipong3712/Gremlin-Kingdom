@@ -2,72 +2,66 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>{% block title %}Gremlin Kingdom{% endblock %}</title>
+    <title>Gremlin Kingdom</title>
 
     <link rel="icon" href="/static/icons/favicon.png">
 
     <link rel="stylesheet" href="/static/css/style.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
 
-<nav>
+    <nav>
 
-    <div class="logo">
+        <div class="logo">
 
-        <span class="crown">👑</span>
+            <span class="crown">👑</span>
 
-        <span class="logo-text">GREMLIN KINGDOM</span>
+            <span class="logo-text">
 
-    </div>
+                Gremlin Kingdom
 
-    <ul>
+            </span>
 
-        <li><a href="/">Home</a></li>
+        </div>
 
-        <li><a href="/characters">Characters</a></li>
+        <ul>
 
-        <li><a href="/timeline">Timeline</a></li>
+            <li><a href="/" class="{%if request.url.path == '/'%}active {%endif%}">Home </a> </li>
 
-        <li><a href="/world">World</a></li>
+            <li><a href="/king" class="{% if request.url.path == '/king' %}active{% endif %}">
+                    King
+                </a></li>
 
-        <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/history" class="{% if request.url.path == '/history' %}active{% endif %}">
+                    History
+                </a></li>
 
-    </ul>
+            <li><a href="/gallery" class="{% if request.url.path == '/gallery' %}active{% endif %}">
+                    Gallery
+                </a></li>
 
-</nav>
+            <li><a href="/timeline" class="{% if request.url.path == '/timeline' %}active{% endif %}">
+                    Timeline
+                </a></li>
 
-{% block content %}
+            <li><a href="/codex" class="{% if request.url.path == '/codex' %}active{% endif %}">
+                    Royal Codex
+                </a></li>
 
-{% endblock %}
+        </ul>
 
-<footer>
-    <h2>👑 GREMLIN KINGDOM</h2>
-    <p>The Official Encyclopedia</p>
-    <div class="footer-menu">
-        <a href="/">Home</a>
-        <a href="/characters">Characters</a>
-        <a href="/timeline">Timeline</a>
-        <a href="/world">World</a>
-        <a href="/gallery">Gallery</a>
-    </div>
-    <p> © 2026 Gremlin Kingdom </p>
-    <p>Made with ❤️ by Andy & J</p>
-    
+    </nav>
 
-</footer>
+    {% block content %}
+
+    {% endblock %}
 
 </body>
 

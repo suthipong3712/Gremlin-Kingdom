@@ -19,6 +19,29 @@ async def home(request: Request):
         name="index.html"
     )
     
+@app.get("/king")
+async def king(request: Request):
+    return templates.TemplateResponse(
+     request=request,
+     name="king.html"
+    )
+
+
+
+@app.get("/history")
+async def history(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="history.html"
+    )
+
+@app.get("/codex")
+async def codex(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="codex.html"
+    )
+    
 @app.get("/characters")
 async def characters (request:Request):
     return templates.TemplateResponse(

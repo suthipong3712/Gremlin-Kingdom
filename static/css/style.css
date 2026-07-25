@@ -382,3 +382,21 @@ footer p {
     resize:vertical;
 
 }
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    font-family: 'Cinzel',serif;
+}
+
+/*====== ACtive Menu ========*/
+nav a.active {
+    color: #22c55e;
+}
+
+nav a.active::after{
+    width: 100%;
+}
