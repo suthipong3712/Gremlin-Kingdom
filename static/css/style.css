@@ -433,11 +433,15 @@ nav a.active::after {
 
     gap: 35px;
 
+    margin-top: 50px;
+
 }
 
 .character-card {
 
-    background: #102116;
+    background: linear-gradient(
+        180deg,#15281d,#0a130e
+    );
 
     border-radius: 20px;
 
@@ -451,7 +455,7 @@ nav a.active::after {
 
 .character-card:hover {
 
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-10px) scale(1.05);
 
     border-color: #22c55e;
 
@@ -470,6 +474,7 @@ nav a.active::after {
     background: #0d1d13;
     padding: 18px;
     display: block;
+    transition: .4s;
 
 }
 
@@ -508,5 +513,37 @@ nav a.active::after {
     overflow: hidden;
 
     transition: .35s;
+
+}
+
+.rarity {
+    background: linear-gradient(
+        90deg,#FFD700,#FFEA7A
+    );
+    color: #222;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px;
+    letter-spacing: 2px;
+    font-size: 14px;
+}
+
+.profile-btn {
+    display: block;
+    margin: 25px 20px;
+    padding: 14px;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    background: #22c55e;
+    color: white;
+    transition: .3s;
+    font-weight: 600;
+}
+.profile-btn:hover{
+
+    background:#2be86d;
+
+    transform:translateY(-2px);
 
 }
