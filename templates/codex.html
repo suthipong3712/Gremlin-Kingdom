@@ -2,10 +2,20 @@
 
 {% block content %}
 
-<div class="page">
-
-    <h1>📖 Royal Codex</h1>
-
-</div>
+<section class="codex">
+    <h1>👑 Royal Codex</h1>
+    <div class="card-container">
+        {%for character in characters%}
+        <div class="character-card">
+            <img src="{{character['image']}}" alt="{{character['name']}}">
+            <h2>{{character["name"]}}</h2>
+            <h3>{{character["title"]}}</h3>
+            <p><strong>Race:</strong> {{character["race"]}}</p>
+            <p><strong>Age:</strong>{{character["agr"]}}</p>
+            <p>{{character["description"]}}</p>
+        </div>
+        {{%endfor%}}
+    </div>
+</section>
 
 {% endblock %}

@@ -37,10 +37,23 @@ async def history(request: Request):
 
 @app.get("/codex")
 async def codex(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name="codex.html"
-    )
+   conn = get_connection ()
+   cursor = conn.cursor()
+   cursor.execute ("""
+            SELECT *
+            FROM characters
+            ORDER BY id
+    """)
+   characters = cursor.fetchall()
+   conn.close()
+   return templates.TemplateResponse(
+       request=request,
+       name="codex.html",
+         context={
+            "characters": characters
+        }
+   )
+   
     
 @app.get("/characters")
 async def characters (request:Request):
