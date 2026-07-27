@@ -11,7 +11,7 @@ Admin
         <h2>👑 Character Manager</h2>
         <p>Add a new character into Gremlin Kingdom</p>
     </div>
-    <form action="/add-character" method="post" class="admin-form">
+    <form action="/add-character" method="post" enctype="multipart/form-data" class="admin-form">
         <input type="text" name="name" placeholder="Character Name" required>
         <input type="text" name="title" placeholder="Title">
         <input type="text" name="race" placeholder="Race">
@@ -20,7 +20,7 @@ Admin
         name="description"
         rows="5"
         placeholder="Description"></textarea>
-        <input type="text" name="image" placeholder="Image filename">
+        <input type="file" name="image" accept="image/*">
         <button type="submit"> SAVE CHARACTER</button>
     </form>
 

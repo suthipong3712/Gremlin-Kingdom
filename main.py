@@ -4,6 +4,9 @@ from fastapi.templating import Jinja2Templates
 from fastapi import Request,Form
 from fastapi.responses import RedirectResponse
 from database import get_connection
+from fastapi import UploadFile, File
+import shutil
+import os
 
 app = FastAPI()
 
@@ -99,8 +102,22 @@ async def add_character(
     race: str = Form(""),
     age: int = Form(0),
     description: str = Form(""),
-    image: str = Form("")
+    image: UploadFile = File(...)
 ):
+    filename = image.filename
+    filepath = os.path.join(
+        "static",
+        "images",
+        "characters",
+        filename
+    )
+    os.makedirs(
+    "static/images/characters",
+    exist_ok=True
+    )
+    
+    with open(filepath,"wb") as buffer:
+        shutil.copyfileobj(image.file,buffer)
 
     conn = get_connection()
 
@@ -116,13 +133,13 @@ async def add_character(
 
     (?,?,?,?,?,?)
 
-    """,(name,title,race,age,description,image))
+    """,(name,title,race,age,description, f"/static/images/characters/{filename}"))
 
     conn.commit()
 
     conn.close()
 
     return RedirectResponse(
-        "/characters",
+        "/codex",
         status_code=303
     )
