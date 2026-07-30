@@ -90,10 +90,27 @@ async def gallery(request: Request):
     
 @app.get("/admin")
 async def admin(request:Request):
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+            SELECT *
+            FROM characters
+            ORDER By id
+            """)
+    characters = cursor.fetchall()
+    conn.close()
     return templates.TemplateResponse(
         request=request,
-        name="admin.html"
+        name="admin.html",
+        context={
+            "characters":characters
+        }
     )
+    
+    
+    
+    
     
 @app.post("/add-character")
 async def add_character(

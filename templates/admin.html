@@ -16,13 +16,41 @@ Admin
         <input type="text" name="title" placeholder="Title">
         <input type="text" name="race" placeholder="Race">
         <input type="number" name="age" placeholder="Age">
-        <textarea
-        name="description"
-        rows="5"
-        placeholder="Description"></textarea>
+        <textarea name="description" rows="5" placeholder="Description"></textarea>
         <input type="file" name="image" accept="image/*">
         <button type="submit"> SAVE CHARACTER</button>
     </form>
+    <br>
+    <hr>
+    <h2 style="margin-top: 60px;">
+        📚 Existing Characters
+    </h2>
+
+    <div class="card-container">
+
+        {%for character in characters%}
+        <div class="character-card">
+            <img src="{{character['image']}}">
+            <h2>{{character["name"]}}</h2>
+            <h3>{{character["title"]}}</h3>
+            <p><b>Race:</b>{{character["race"]}}</p>
+            <p><b>Age:</b>{{character["age"]}}</p>
+            <div class="admin-action">
+                <a href="/edit-character/{{character['id']}}" class="edit-btn">
+                    ✏ Edit
+                </a>
+                <a href="/deleter-character/{{character['id']}}"
+                class="delete-btn">
+                    🗑 Delete
+                </a>
+
+
+            </div>
+
+        </div>
+
+        {%endfor%}
+    </div>
 
 </section>
 
