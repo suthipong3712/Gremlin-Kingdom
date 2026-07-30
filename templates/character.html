@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="codex">
+
+    <h1>{{ character["name"] }}</h1>
+
+    <img src="{{ character["image"] }}" width="350">
+
+    <h2>{{ character["title"] }}</h2>
+
+    <p><b>Race :</b> {{ character["race"] }}</p>
+
+    <p><b>Age :</b> {{ character["age"] }}</p>
+
+    <p>{{ character["description"] }}</p>
+
+    <br>
+
+    <a href="/codex">
+        ← Back to Royal Codex
+    </a>
+
+</div>
+
+{% endblock %}

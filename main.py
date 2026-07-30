@@ -143,3 +143,24 @@ async def add_character(
         "/codex",
         status_code=303
     )
+    
+@app.get("/character/{character_id}")
+async def character_detail(request: Request,character_id:int):
+    conn = get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute ("""
+            SELECT *
+            FROM characters
+            WHERE id = ?
+            """,(character_id,))
+    character = cursor.fetchone()
+    conn.close()
+    return templates.TemplateResponse(
+        request=request,
+        name="character.html",
+        context={
+            "character":character
+        }
+    )
+    

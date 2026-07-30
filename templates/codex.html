@@ -16,7 +16,7 @@
             <p><strong>Race:</strong> {{character["race"]}}</p>
             <p><strong>Age:</strong>{{character["age"]}} </p>
             <p>{{character["description"]}}</p>
-            <a href="#" class="profile-btn">View Profile → </a>
+            <a href="/character/{{character['id']}}" class="profile-btn">View Profile → </a>
         </div>
         {%endfor%}
     </div>
