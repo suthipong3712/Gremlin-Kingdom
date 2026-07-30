@@ -16,9 +16,9 @@ CREATE TABLE IF NOT EXISTS characters (
 
     age INTEGER,
 
-    kingdom TEXT,
+    home TEXT,
 
-    rank TEXT,
+    relationship TEXT,
 
     description TEXT,
 
@@ -30,4 +30,4 @@ CREATE TABLE IF NOT EXISTS characters (
 conn.commit()
 conn.close()
 
-print("✅ Database Created Successfully")
+print("Database Created Successfully")

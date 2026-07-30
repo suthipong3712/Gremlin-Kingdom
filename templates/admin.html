@@ -18,6 +18,8 @@ Admin
         <input type="number" name="age" placeholder="Age">
         <textarea name="description" rows="5" placeholder="Description"></textarea>
         <input type="file" name="image" accept="image/*">
+        <input type="text" name="home" placeholder="Home">
+        <input type="text" name="relationship" placeholder="Relationship">
         <button type="submit"> SAVE CHARACTER</button>
     </form>
     <br>
@@ -35,6 +37,8 @@ Admin
             <h3>{{character["title"]}}</h3>
             <p><b>Race:</b>{{character["race"]}}</p>
             <p><b>Age:</b>{{character["age"]}}</p>
+            <p><strong>Home :</strong> {{ character["home"] }}</p>
+            <p><strong>Relationship :</strong> {{ character["relationship"] }}</p>
             <div class="admin-action">
                 <a href="/edit-character/{{character['id']}}" class="edit-btn">
                     ✏ Edit

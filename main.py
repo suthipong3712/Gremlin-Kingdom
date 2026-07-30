@@ -118,8 +118,12 @@ async def add_character(
     title: str = Form(""),
     race: str = Form(""),
     age: int = Form(0),
+    home:str=Form(""),
+    relationship:str = Form(""),
+    
     description: str = Form(""),
     image: UploadFile = File(...)
+    
 ):
     filename = image.filename
     filepath = os.path.join(
@@ -144,13 +148,23 @@ async def add_character(
 
     INSERT INTO characters
 
-    (name,title,race,age,description,image)
+    (name,title,race,age,home,relationship,description,image)
 
     VALUES
 
-    (?,?,?,?,?,?)
+    (?,?,?,?,?,?,?,?)
 
-    """,(name,title,race,age,description, f"/static/images/characters/{filename}"))
+    """,
+    (
+    name,
+    title,
+    race,
+    age,
+    home,
+    relationship,
+    description,
+    f"/static/images/characters/{filename}"
+))
 
     conn.commit()
 
