@@ -601,3 +601,49 @@ nav a.active::after {
     opacity:.85;
 
 }
+
+.admin-action{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.edit-btn{
+
+    flex:1;
+
+    text-align:center;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+}
+
+.delete-btn{
+
+    flex:1;
+
+    text-align:center;
+
+    background:#dc2626;
+
+    color:white;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+}

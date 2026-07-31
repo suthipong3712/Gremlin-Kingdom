@@ -8,24 +8,24 @@ Admin
 
 <section class="characters">
     <div class="section-title">
-        <h2>👑 Character Manager</h2>
-        <p>Add a new character into Gremlin Kingdom</p>
+        <h2>👑 จัดการตัวละคร </h2>
+        <p>เพิ่มตัวละครเข้าสู่อาณาจักร Gremlin Kingdom</p>
     </div>
     <form action="/add-character" method="post" enctype="multipart/form-data" class="admin-form">
-        <input type="text" name="name" placeholder="Character Name" required>
-        <input type="text" name="title" placeholder="Title">
-        <input type="text" name="race" placeholder="Race">
-        <input type="number" name="age" placeholder="Age">
-        <textarea name="description" rows="5" placeholder="Description"></textarea>
+        <input type="text" name="name" placeholder="ชื่อ" required>
+        <input type="text" name="title" placeholder="ตำแหน่ง">
+        <input type="text" name="race" placeholder="เผ่าพันธ์">
+        <input type="number" name="age" placeholder="อายุ">
+        <textarea name="description" rows="5" placeholder="ประวัติโดยย่อ"></textarea>
         <input type="file" name="image" accept="image/*">
-        <input type="text" name="home" placeholder="Home">
-        <input type="text" name="relationship" placeholder="Relationship">
-        <button type="submit"> SAVE CHARACTER</button>
+        <input type="text" name="home" placeholder="บ้าน">
+        <input type="text" name="relationship" placeholder="ความสัมพันธ์">
+        <button type="submit"> 💾 บันทึกตัวละคร </button>
     </form>
     <br>
     <hr>
     <h2 style="margin-top: 60px;">
-        📚 Existing Characters
+        📚 ตัวละครทั้งหมด
     </h2>
 
     <div class="card-container">
@@ -35,17 +35,17 @@ Admin
             <img src="{{character['image']}}">
             <h2>{{character["name"]}}</h2>
             <h3>{{character["title"]}}</h3>
-            <p><b>Race:</b>{{character["race"]}}</p>
-            <p><b>Age:</b>{{character["age"]}}</p>
-            <p><strong>Home :</strong> {{ character["home"] }}</p>
-            <p><strong>Relationship :</strong> {{ character["relationship"] }}</p>
+            <p><b>เผ่าพันธ์:</b>{{character["race"]}}</p>
+            <p><b>อายุ:</b>{{character["age"]}}</p>
+            <p><strong>🏠 บ้าน :</strong> {{ character["home"] }}</p>
+            <p><strong>🤝 ความสัมพันธ์ :</strong> {{ character["relationship"] }}</p>
             <div class="admin-action">
                 <a href="/edit-character/{{character['id']}}" class="edit-btn">
-                    ✏ Edit
+                    ✏ แก้ไข
                 </a>
-                <a href="/deleter-character/{{character['id']}}"
+                <a href="/delete-character/{{character['id']}}"
                 class="delete-btn">
-                    🗑 Delete
+                    🗑 ลบ
                 </a>
 
 
