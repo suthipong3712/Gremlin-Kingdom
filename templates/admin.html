@@ -43,9 +43,11 @@ Admin
                 <a href="/edit-character/{{character['id']}}" class="edit-btn">
                     ✏ แก้ไข
                 </a>
-                <a href="/delete-character/{{character['id']}}"
-                class="delete-btn">
+                <a href="/delete-character/{{ character['id'] }}" class="delete-btn"
+                    onclick="return confirm('คุณต้องการลบตัวละครนี้ใช่หรือไม่?')">
+
                     🗑 ลบ
+
                 </a>
 
 

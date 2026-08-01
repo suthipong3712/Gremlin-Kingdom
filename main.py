@@ -107,9 +107,75 @@ async def admin(request:Request):
             "characters":characters
         }
     )
+
+@app.get("/edit-character/{character_id}")
+async def edit_character(
+    request:Request,
+    character_id:int
+):
+    conn=get_connection()
+    cursor=conn.cursor()
+    cursor.execute("""
+        SELECT *
+        FROM characters
+        WHERE id = ?
+        """,(character_id,))
+    character=cursor.fetchone()
+    conn.close()
+    return templates.TemplateResponse(
+        request=request,
+        name="edit_character.html",
+        context={
+            "character":character
+        }
+    )
     
+@app.post("/update-character/{character_id}")
+async def update_character(
+    character_id: int,
+    name: str = Form(...),
+    title: str = Form(""),
+    race: str = Form(""),
+    age: int = Form(0),
+    home: str = Form(""),
+    relationship: str = Form(""),
+    description: str = Form("")
+):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        UPDATE characters
+        SET
+            name = ?,
+            title = ?,
+            race = ?,
+            age = ?,
+            home = ?,
+            relationship = ?,
+            description = ?
+        WHERE id = ?
+    """, (
+        name,
+        title,
+        race,
+        age,
+        home,
+        relationship,
+        description,
+        character_id
+    ))
+
+    conn.commit()
+    conn.close()
+
+    return RedirectResponse(
+        url=f"/character/{character_id}",
+        status_code=303
+    )
     
-    
+       
     
     
 @app.post("/add-character")
@@ -193,5 +259,24 @@ async def character_detail(request: Request,character_id:int):
         context={
             "character":character
         }
+    )
+    
+@app.get("/delete-character/{character_id}")
+async def delete_character(character_id: int):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM characters WHERE id=?",
+        (character_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return RedirectResponse(
+        url="/admin",
+        status_code=303
     )
     

@@ -647,3 +647,17 @@ nav a.active::after {
     text-decoration:none;
 
 }
+
+.admin-form label{
+
+    color:#d6d6d6;
+
+    font-weight:600;
+
+    margin-top:10px;
+
+    margin-bottom:-10px;
+
+    display:block;
+
+}
