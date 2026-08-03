@@ -41,7 +41,7 @@ nav li:hover {
     position: relative;
     height: 100vh;
 
-    background-image: url("/static/images/hero/castle-bg.png");
+    background-image: url("/static/images/hero/castle-bg3.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -118,8 +118,8 @@ nav ul {
     align-items: center;
     text-align: center;
     position: relative;
-    background-image: url("/static/images/hero/castle-bg2.png");
-    background-size: cover;
+    background-image: url("/static/images/hero/castle-bg3.png");
+    background-size: 100% auto;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -659,5 +659,64 @@ nav a.active::after {
     margin-bottom:-10px;
 
     display:block;
+
+}
+
+/*=============================
+ Dashboard
+=============================*/
+
+.dashboard {
+    display: grid;
+    grid-auto-columns: repeat(3,1fr);
+    gap: 25px;
+    margin-bottom: 45px;
+}
+
+.dashboard-box {
+    background: #102116;
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, .08);
+    transition: .3s;
+}
+
+.dashboard-box:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 0 25px rgba(34,197,94,.35);
+
+}
+
+.dashboard-box h3{
+
+    color:#8bcf9b;
+
+    margin-bottom:15px;
+
+}
+
+.dashboard-box h1{
+
+    font-size:48px;
+
+    color:white;
+}
+
+/* ===================================
+   GLOBAL CONTAINER
+=================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:1280px;
+
+    margin:0 auto;
+
+    padding:0 24px;
 
 }
