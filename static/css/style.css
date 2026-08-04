@@ -22,12 +22,6 @@ nav {
     z-index: 9999;
 }
 
-.logo {
-    font-size: 26px;
-    list-style: none;
-    gap: 35px;
-}
-
 nav li {
     cursor: pointer;
     transition: .3s;
@@ -37,21 +31,9 @@ nav li:hover {
     color: #22c55e;
 }
 
-.hero {
-    position: relative;
-    height: 100vh;
-
-    background-image: url("/static/images/hero/castle-bg3.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .overlay {
+    position: relative;
+    z-index: 2;
     text-align: center;
     background: rgba(0, 0, 0, .45);
     padding: 60px;
@@ -168,15 +150,13 @@ nav ul {
     background: rgba(0, 0, 0, .45);
 }
 
-.overlay {
-    position: relative;
-    z-index: 2;
-}
+
 
 .logo {
     display: flex;
     align-items: center;
     gap: 12px;
+    font-size: 26px;
 }
 
 .logo-text {
@@ -668,9 +648,15 @@ nav a.active::after {
 
 .dashboard {
     display: grid;
-    grid-auto-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
     margin-bottom: 45px;
+}
+
+@media (max-width: 900px){
+    .dashboard{
+        grid-template-columns:1fr;
+    }
 }
 
 .dashboard-box {
@@ -719,4 +705,15 @@ nav a.active::after {
 
     padding:0 24px;
 
+}
+
+.admin-list-title {
+    margin-top: 60px;
+}
+
+.character-detail-image {
+    width: 420px;
+    max-width: 100%;
+    border-radius: 20px;
+    object-fit: cover;
 }

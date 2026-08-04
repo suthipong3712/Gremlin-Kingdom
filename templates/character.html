@@ -1,31 +1,56 @@
 {% extends "base.html" %}
 
+{% block title %}
+{{ character["name"] }}
+{% endblock %}
+
 {% block content %}
 
-<div class="codex">
+<section class="character-detail">
 
-    <h1>👤 ชื่อ :</strong> {{ character["name"] }}</h1>
+    <div class="character-header">
 
-    <img src="{{ character["image"] }}" width="350">
+        <img
+            src="{{ character['image'] }}"
+            alt="{{ character['name'] }}"
+            class="character-detail-image">
 
-    <h2>👑 ตำแหน่ง :</strong>  {{ character["title"] }}</h2>
+        <h1>{{ character["name"] }}</h1>
 
-    <p><b>🐾 เผ่าพันธุ์ :</b> {{ character["race"] }}</p>
+        <h2>{{ character["title"] }}</h2>
 
-    <p><b>🎂 อายุ :</b> {{ character["age"] }}</p>
+    </div>
 
-    <p><strong>🏠 บ้าน :</strong> {{ character["home"] }}</p>
+    <div class="info-card">
 
-    <p><strong>🤝 ความสัมพันธ์ :</strong> {{ character["relationship"] }}</p>
+        <h3>📖 ข้อมูลพื้นฐาน</h3>
 
-    <p><strong>📖 ประวัติ :</strong> {{ character["description"] }}</p>
+        <p><strong>🐾 เผ่าพันธุ์ :</strong> {{ character["race"] }}</p>
 
-    <br>
+        <p><strong>🎂 อายุ :</strong> {{ character["age"] }}</p>
 
-    <a href="/codex">
-        ← Back to Royal Codex
-    </a>
+        <p><strong>🏠 บ้าน :</strong> {{ character["home"] }}</p>
 
-</div>
+        <p><strong>🤝 ความสัมพันธ์ :</strong> {{ character["relationship"] }}</p>
+
+    </div>
+
+    <div class="description-card">
+
+        <h3>📜 ประวัติ</h3>
+
+        <p>{{ character["description"] }}</p>
+
+    </div>
+
+    <div class="back-button">
+
+        <a href="/codex">
+            ⬅ กลับสู่ Royal Codex
+        </a>
+
+    </div>
+
+</section>
 
 {% endblock %}
