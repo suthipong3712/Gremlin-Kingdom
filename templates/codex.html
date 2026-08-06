@@ -4,6 +4,19 @@
 
 <section class="codex">
     <h1>👑 Royal Codex</h1>
+
+    <div class="search-box">
+        <form action="/codex" method="get">
+            <input
+                type="text"
+                name="q"
+                placeholder="🔍 ค้นหาตัวละคร..."
+                value="{{query if query else ''}}">
+                <button type="submit">
+                    ค้นหา
+                </button>
+        </form>
+    </div>
     
     <div class="card-container">
         

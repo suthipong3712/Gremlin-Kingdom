@@ -32,18 +32,47 @@ async def history(request: Request):
 
 
 @app.get("/codex")
-async def codex(request: Request):
+async def codex(request: Request, q: str = ""):
+
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("""
+
+    if q:
+
+        keyword = f"%{q}%"
+
+        cursor.execute(
+            """
+            SELECT *
+            FROM characters
+            WHERE
+                name LIKE ?
+                OR title LIKE ?
+                OR race LIKE ?
+                OR home LIKE ?
+                OR relationship LIKE ?
+                OR description LIKE ?
+            ORDER BY id
+        """,
+            (keyword, keyword, keyword, keyword, keyword, keyword),
+        )
+
+    else:
+
+        cursor.execute("""
             SELECT *
             FROM characters
             ORDER BY id
-    """)
+        """)
+
     characters = cursor.fetchall()
+
     conn.close()
+
     return templates.TemplateResponse(
-        request=request, name="codex.html", context={"characters": characters}
+        request=request,
+        name="codex.html",
+        context={"characters": characters, "query": q},
     )
 
 

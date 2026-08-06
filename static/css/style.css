@@ -841,3 +841,35 @@ nav a.active::after {
     box-shadow:0 0 30px rgba(34,197,94,.45);
 
 }
+
+/* ======================================
+   SEARCH BOX
+====================================== */
+.search-box {
+    max-width: 700px;
+    margin: 40px auto 60px;
+}
+
+.search-box form {
+    display: flex;
+    gap: 15;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 18px 22px;
+    border-radius: 50px;
+    border: none;
+    font-size: 18px;
+    background: #102017;
+    color: white;
+}
+
+.search-box input:focus {
+    outline: none;
+    box-shadow: 0 0 20px rgba(34, 197, 94, .35);
+}
+
+.search-box button {
+    padding: 18px 35px;
+}
