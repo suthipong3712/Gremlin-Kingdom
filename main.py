@@ -8,6 +8,7 @@ from database import get_connection
 
 import os
 import shutil
+import math
 
 app = FastAPI()
 
@@ -32,15 +33,47 @@ async def history(request: Request):
 
 
 @app.get("/codex")
-async def codex(request: Request, q: str = ""):
+async def codex(request: Request, q: str = "", page: int = 1):
 
     conn = get_connection()
     cursor = conn.cursor()
 
+    # ----------------------------
+    # จำนวนตัวละครต่อ 1 หน้า
+    # ----------------------------
+    per_page = 8
+
+    if page < 1:
+        page = 1
+
+    offset = (page - 1) * per_page
+
+    # ===================================================
+    # มีการค้นหา
+    # ===================================================
     if q:
 
         keyword = f"%{q}%"
 
+        # นับจำนวนข้อมูลทั้งหมด
+        cursor.execute(
+            """
+            SELECT COUNT(*)
+            FROM characters
+            WHERE
+                name LIKE ?
+                OR title LIKE ?
+                OR race LIKE ?
+                OR home LIKE ?
+                OR relationship LIKE ?
+                OR description LIKE ?
+        """,
+            (keyword, keyword, keyword, keyword, keyword, keyword),
+        )
+
+        total_characters = cursor.fetchone()[0]
+
+        # ดึงข้อมูลเฉพาะหน้าที่ต้องการ
         cursor.execute(
             """
             SELECT *
@@ -53,27 +86,54 @@ async def codex(request: Request, q: str = ""):
                 OR relationship LIKE ?
                 OR description LIKE ?
             ORDER BY id
+            LIMIT ?
+            OFFSET ?
         """,
-            (keyword, keyword, keyword, keyword, keyword, keyword),
+            (keyword, keyword, keyword, keyword, keyword, keyword, per_page, offset),
         )
 
+    # ===================================================
+    # ไม่มีการค้นหา
+    # ===================================================
     else:
 
+        # นับจำนวนตัวละครทั้งหมด
         cursor.execute("""
+            SELECT COUNT(*)
+            FROM characters
+        """)
+
+        total_characters = cursor.fetchone()[0]
+
+        # ดึงข้อมูลเฉพาะหน้าปัจจุบัน
+        cursor.execute(
+            """
             SELECT *
             FROM characters
             ORDER BY id
-        """)
+            LIMIT ?
+            OFFSET ?
+        """,
+            (per_page, offset),
+        )
 
     characters = cursor.fetchall()
 
     conn.close()
 
+    # คำนวณจำนวนหน้า
+    total_pages = math.ceil(total_characters / per_page)
+
     return templates.TemplateResponse(
-        request=request,
-        name="codex.html",
-        context={"characters": characters, "query": q},
-    )
+    request=request,
+    name="codex.html",
+    context={
+        "characters": characters,
+        "query": q,
+        "page": page,
+        "total_pages": total_pages,
+    },
+)
 
 
 @app.get("/characters")
