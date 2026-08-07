@@ -873,3 +873,57 @@ nav a.active::after {
 .search-box button {
     padding: 18px 35px;
 }
+
+/* =========================================
+   CODEX PAGINATION
+========================================= */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 35px auto;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 42px;
+    height: 42px;
+
+    padding: 0 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+
+    background: rgba(20, 30, 25, 0.85);
+    color: #ffffff;
+
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+a.page-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(50, 80, 60, 0.95);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.page-btn.active {
+    background: #d4af37;
+    color: #1b1b1b;
+    border-color: #d4af37;
+
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+
+    cursor: default;
+}
