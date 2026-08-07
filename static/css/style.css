@@ -417,21 +417,7 @@ nav a.active::after {
 
 }
 
-.character-card {
 
-    background: linear-gradient(
-        180deg,#15281d,#0a130e
-    );
-
-    border-radius: 20px;
-
-    overflow: hidden;
-
-    transition: .35s;
-
-    border: 1px solid rgba(255, 255, 255, .08);
-
-}
 
 .character-card:hover {
 
@@ -711,37 +697,14 @@ nav a.active::after {
     margin-top: 60px;
 }
 
-.character-detail-image {
-    width: 420px;
-    max-width: 100%;
-    border-radius: 20px;
-    object-fit: cover;
-}
-
 /* ======================================
    CHARACTER DETAIL
 ====================================== */
-.character-detail {
-    max-width: 1100px;
-    margin: 120px auto 80px;
-    padding: 30px;
-}
 
-.character-header {
-    text-align: center;
-    margin-bottom: 50px;
-}
 
-.character-detail-image {
-    width: 420px;
-    max-width: 100%;
-    height: 520px;
 
-    object-fit: cover;
-    border-radius: 25px;
-    border: 5px solid #22c55e;
-    box-shadow: 0 0 40px rgba(34, 197, 94, .35);
-}
+
+
 
 .character-header h1{
 
@@ -852,7 +815,7 @@ nav a.active::after {
 
 .search-box form {
     display: flex;
-    gap: 15;
+    gap: 15px;
 }
 
 .search-box input {
@@ -926,4 +889,201 @@ a.page-btn:hover {
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 
     cursor: default;
+}
+
+/* =========================================
+   CHARACTER PROFILE
+========================================= */
+
+.character-profile {
+    width: min(1100px, 92%);
+
+    margin: 0 auto;
+
+    padding-top: 160px;
+    padding-bottom: 60px;
+}
+
+/* -----------------------------------------
+   Character Header
+----------------------------------------- */
+
+.character-header {
+    text-align: center;
+    margin-bottom: 50px;
+
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+/* -----------------------------------------
+   Character Image
+----------------------------------------- */
+
+.character-image-box {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.character-detail-image {
+    width: 360px;
+    max-width: 100%;
+    height: 450px;
+
+    object-fit: contain;
+
+    border-radius: 22px;
+    border: 4px solid #22c55e;
+
+    box-shadow:
+        0 0 25px rgba(34, 197, 94, 0.25);
+
+    display: block;
+}
+
+/* -----------------------------------------
+   Character Summary
+----------------------------------------- */
+
+.character-summary {
+    padding-top: 10px;
+}
+
+.character-summary h1 {
+    margin: 0 0 8px;
+
+    font-size: 48px;
+    line-height: 1.1;
+}
+
+.character-summary h2 {
+    margin: 0 0 30px;
+
+    color: #22c55e;
+
+    font-size: 24px;
+}
+
+/* -----------------------------------------
+   Basic Information
+----------------------------------------- */
+
+.character-summary .info-card {
+    margin: 0;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    background: rgba(20, 35, 28, 0.75);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.character-summary .info-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.character-summary .info-card p {
+    margin: 12px 0;
+    line-height: 1.6;
+}
+
+/* -----------------------------------------
+   Character Description
+----------------------------------------- */
+
+.description-card {
+    margin-top: 45px;
+    padding: 30px;
+
+    border-radius: 20px;
+
+    background: rgba(20, 35, 28, 0.75);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.description-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.description-card p {
+    line-height: 1.9;
+    margin: 0;
+}
+
+/* -----------------------------------------
+   Back Button
+----------------------------------------- */
+
+.back-button {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 35px;
+}
+
+.back-button a {
+    display: inline-block;
+
+    padding: 12px 24px;
+
+    border-radius: 12px;
+
+    background: rgba(20, 35, 28, 0.9);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    color: white;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.back-button a:hover {
+    transform: translateY(-2px);
+
+    background: rgba(34, 197, 94, 0.2);
+}
+
+/* -----------------------------------------
+   Mobile
+----------------------------------------- */
+
+@media (max-width: 800px) {
+
+    .character-header {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .character-image-box {
+        justify-content: center;
+    }
+
+    .character-detail-image {
+        width: 320px;
+        height: 400px;
+    }
+
+    .character-summary {
+        text-align: center;
+    }
+
+    .character-summary h1 {
+        font-size: 38px;
+    }
+
+    .character-summary .info-card {
+        text-align: left;
+    }
 }

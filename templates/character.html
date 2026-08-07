@@ -6,42 +6,75 @@
 
 {% block content %}
 
-<section class="character-detail">
+<section class="character-profile">
+
+    <!-- ================================
+         ส่วนหัวตัวละคร
+    ================================= -->
 
     <div class="character-header">
 
-        <img
-            src="{{ character['image'] }}"
-            alt="{{ character['name'] }}"
-            class="character-detail-image">
+        <div class="character-image-box">
 
-        <h1>{{ character["name"] }}</h1>
+            <img src="{{ character['image'] }}" alt="{{ character['name'] }}" class="character-detail-image">
 
-        <h2>{{ character["title"] }}</h2>
+        </div>
+
+        <div class="character-summary">
+
+            <h1>{{ character["name"] }}</h1>
+
+            <h2>{{ character["title"] }}</h2>
+
+            <div class="info-card">
+
+                <h3>📖 ข้อมูลพื้นฐาน</h3>
+
+                <p>
+                    <strong>🐾 เผ่าพันธุ์ :</strong>
+                    {{ character["race"] }}
+                </p>
+
+                <p>
+                    <strong>🎂 อายุ :</strong>
+                    {{ character["age"] }}
+                </p>
+
+                <p>
+                    <strong>🏠 บ้าน :</strong>
+                    {{ character["home"] }}
+                </p>
+
+                <p>
+                    <strong>🤝 ความสัมพันธ์ :</strong>
+                    {{ character["relationship"] }}
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="info-card">
 
-        <h3>📖 ข้อมูลพื้นฐาน</h3>
-
-        <p><strong>🐾 เผ่าพันธุ์ :</strong> {{ character["race"] }}</p>
-
-        <p><strong>🎂 อายุ :</strong> {{ character["age"] }}</p>
-
-        <p><strong>🏠 บ้าน :</strong> {{ character["home"] }}</p>
-
-        <p><strong>🤝 ความสัมพันธ์ :</strong> {{ character["relationship"] }}</p>
-
-    </div>
+    <!-- ================================
+         ประวัติตัวละคร
+    ================================= -->
 
     <div class="description-card">
 
         <h3>📜 ประวัติ</h3>
 
-        <p>{{ character["description"] }}</p>
+        <p>
+            {{ character["description"] }}
+        </p>
 
     </div>
+
+
+    <!-- ================================
+         ปุ่มกลับ
+    ================================= -->
 
     <div class="back-button">
 
