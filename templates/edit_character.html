@@ -8,55 +8,51 @@
         <h2>✏ แก้ไขตัวละคร</h2>
         <p>แก้ไขข้อมูลของตัวละครในอาณาจักร</p>
     </div>
+    <div class="current-image">
 
-    <form
-        action="/update-character/{{ character['id'] }}"
-        method="post"
-        enctype="multipart/form-data"
+        <center>
+            <p>🖼️ รูปปัจจุบัน</p>
+        </center>
+
+        <center><img src="{{ character['image'] }}" alt="{{ character['name'] }}" style="
+            width: 250px;
+            max-width: 100%;
+            border-radius: 18px;
+            border: 3px solid #22c55e;
+        "></center>
+
+    </div>
+    <form action="/update-character/{{ character['id'] }}" method="post" enctype="multipart/form-data"
         class="admin-form">
         <label>👑 ชื่อตัวละคร</label>
-        <input
-            type="text"
-            name="name"
-            value="{{ character['name'] }}"
-            required>
+        <input type="text" name="name" value="{{ character['name'] }}" required>
         <label>🎖 ตำแหน่ง</label>
-        <input
-            type="text"
-            name="title"
-            value="{{ character['title'] }}">
+        <input type="text" name="title" value="{{ character['title'] }}">
         <label>🐾 เผ่าพันธุ์</label>
-        <input
-            type="text"
-            name="race"
-            value="{{ character['race'] }}">
+        <input type="text" name="race" value="{{ character['race'] }}">
         <label>🎂 อายุ</label>
-        <input
-            type="number"
-            name="age"
-            value="{{ character['age'] }}">
+        <input type="number" name="age" value="{{ character['age'] }}">
         <label>🏠 บ้าน</label>
-        <input
-            type="text"
-            name="home"
-            value="{{ character['home'] }}">
+        <input type="text" name="home" value="{{ character['home'] }}">
         <label>❤️ ความสัมพันธ์</label>
-        <input
-            type="text"
-            name="relationship"
-            value="{{ character['relationship'] }}">
+        <input type="text" name="relationship" value="{{ character['relationship'] }}">
         <label>📖 ประวัติ</label>
-        <textarea
-            name="description"
-            rows="5">{{ character["description"] }}</textarea>
+        <textarea name="description" rows="5">{{ character["description"] }}</textarea>
+        <center>
 
-        <!---
-            <input
-            type="file"
-            name="image"
-            accept="image/*">
-        -->
+            <label for="image">
+                🖼️ เปลี่ยนรูปตัวละคร
+            </label>
 
+            <br><input type="file" id="image" name="image" accept="image/*">
+
+            <p>
+                <small>
+                    💡 หากไม่เลือกรูปใหม่ ระบบจะใช้รูปเดิม
+                </small>
+            </p>
+
+        </center>
         <button type="submit">
             💾 บันทึกการแก้ไข
         </button>

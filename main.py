@@ -125,15 +125,15 @@ async def codex(request: Request, q: str = "", page: int = 1):
     total_pages = math.ceil(total_characters / per_page)
 
     return templates.TemplateResponse(
-    request=request,
-    name="codex.html",
-    context={
-        "characters": characters,
-        "query": q,
-        "page": page,
-        "total_pages": total_pages,
-    },
-)
+        request=request,
+        name="codex.html",
+        context={
+            "characters": characters,
+            "query": q,
+            "page": page,
+            "total_pages": total_pages,
+        },
+    )
 
 
 @app.get("/characters")
@@ -206,10 +206,60 @@ async def update_character(
     home: str = Form(""),
     relationship: str = Form(""),
     description: str = Form(""),
+    image: UploadFile | None = File(None),
 ):
 
     conn = get_connection()
     cursor = conn.cursor()
+
+    # -----------------------------------------
+    # ดึงข้อมูลตัวละครเดิม
+    # -----------------------------------------
+
+    cursor.execute(
+        """
+        SELECT image
+        FROM characters
+        WHERE id = ?
+        """,
+        (character_id,),
+    )
+
+    character = cursor.fetchone()
+
+    if character is None:
+        conn.close()
+
+        return RedirectResponse(url="/admin", status_code=303)
+
+    old_image = character[0]
+    print("OLD IMAGE:", old_image)
+    print("IMAGE:", image.filename if image else "NO IMAGE")
+
+    # -----------------------------------------
+    # เตรียมรูปภาพ
+    # -----------------------------------------
+
+    image_path = old_image
+
+    # ถ้ามีการเลือกรูปใหม่
+    if image and image.filename:
+
+        os.makedirs("static/images/characters", exist_ok=True)
+
+        filename = image.filename
+
+        filepath = os.path.join("static", "images", "characters", filename)
+
+        # บันทึกรูปใหม่
+        with open(filepath, "wb") as buffer:
+            shutil.copyfileobj(image.file, buffer)
+
+        image_path = f"/static/images/characters/{filename}"
+
+    # -----------------------------------------
+    # UPDATE Database
+    # -----------------------------------------
 
     cursor.execute(
         """
@@ -221,14 +271,29 @@ async def update_character(
             age = ?,
             home = ?,
             relationship = ?,
-            description = ?
+            description = ?,
+            image = ?
         WHERE id = ?
-    """,
-        (name, title, race, age, home, relationship, description, character_id),
+        """,
+        (
+            name,
+            title,
+            race,
+            age,
+            home,
+            relationship,
+            description,
+            image_path,
+            character_id,
+        ),
     )
 
     conn.commit()
     conn.close()
+
+    # -----------------------------------------
+    # กลับไปหน้า Character
+    # -----------------------------------------
 
     return RedirectResponse(url=f"/character/{character_id}", status_code=303)
 
