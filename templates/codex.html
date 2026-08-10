@@ -6,40 +6,78 @@
     <h1>👑 Royal Codex</h1>
     <div class="pagination">
 
-        {% if page > 1 %}
-        <a href="/codex?q={{ query }}&page={{ page - 1 }}" class="page-btn">
-            ◀ ก่อนหน้า
-        </a>
-        {% endif %}
 
-        {% for number in range(1, total_pages + 1) %}
-
-        {% if number == page %}
-        <span class="page-btn active">
-            {{ number }}
-        </span>
-        {% else %}
-        <a href="/codex?q={{ query }}&page={{ number }}" class="page-btn">
-            {{ number }}
-        </a>
-        {% endif %}
-
-        {% endfor %}
-
-        {% if page < total_pages %} <a href="/codex?q={{ query }}&page={{ page + 1 }}" class="page-btn">
-            ถัดไป ▶
-            </a>
-            {% endif %}
 
     </div>
 
-    <div class="search-box">
+
+    <div class="filter-box">
+
         <form action="/codex" method="get">
-            <input type="text" name="q" placeholder="🔍 ค้นหาตัวละคร..." value="{{query if query else ''}}">
+
+            <!-- 🔍 Search -->
+            <input type="text" name="q" placeholder="🔍 ค้นหาตัวละคร..." value="{{ query if query else '' }}">
+
+
+            <!-- 🐾 เผ่าพันธุ์ -->
+            <select name="race">
+
+                <option value="">
+                    🐾 ทุกเผ่าพันธุ์
+                </option>
+
+                {% for item in races %}
+
+                <option value="{{ item }}" {% if race==item %}selected{% endif %}>
+                    {{ item }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <select name="home">
+
+                <option value="">
+                    🏠 ทุกบ้าน
+                </option>
+
+                {% for item in homes %}
+
+                <option value="{{ item }}" {% if home==item %}selected{% endif %}>
+                    {{ item }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <!-- 👑 ตำแหน่ง -->
+            <select name="title">
+
+                <option value="">
+                    👑 ทุกตำแหน่ง
+                </option>
+
+                {% for item in titles %}
+
+                <option value="{{ item }}" {% if title==item %}selected{% endif %}>
+                    {{ item }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+
             <button type="submit">
-                ค้นหา
+                🔎 ค้นหา
             </button>
+
         </form>
+
     </div>
 
     <div class="card-container">
@@ -65,7 +103,8 @@
     <div class="pagination">
 
         {% if page > 1 %}
-        <a href="/codex?q={{ query }}&page={{ page - 1 }}" class="page-btn">
+        <a href="/codex?q={{ query }}&race={{ race }}&home={{ home }}&title={{ title }}&page={{ page - 1 }}"
+            class="page-btn">
             ◀ ก่อนหน้า
         </a>
         {% endif %}
@@ -77,14 +116,17 @@
             {{ number }}
         </span>
         {% else %}
-        <a href="/codex?q={{ query }}&page={{ number }}" class="page-btn">
+        <a href="/codex?q={{ query }}&race={{ race }}&home={{ home }}&title={{ title }}&page={{ number }}"
+            class="page-btn">
             {{ number }}
         </a>
         {% endif %}
 
         {% endfor %}
 
-        {% if page < total_pages %} <a href="/codex?q={{ query }}&page={{ page + 1 }}" class="page-btn">
+        {% if page < total_pages %} <a
+            href="/codex?q={{ query }}&race={{ race }}&home={{ home }}&title={{ title }}&page={{ page + 1 }}"
+            class="page-btn">
             ถัดไป ▶
             </a>
             {% endif %}

@@ -33,14 +33,22 @@ async def history(request: Request):
 
 
 @app.get("/codex")
-async def codex(request: Request, q: str = "", page: int = 1):
+async def codex(
+    request: Request,
+    q: str = "",
+    page: int = 1,
+    race: str = "",
+    home: str = "",
+    title: str = "",
+):
 
     conn = get_connection()
     cursor = conn.cursor()
 
-    # ----------------------------
-    # จำนวนตัวละครต่อ 1 หน้า
-    # ----------------------------
+    # =========================================
+    # Pagination
+    # =========================================
+
     per_page = 8
 
     if page < 1:
@@ -48,81 +56,170 @@ async def codex(request: Request, q: str = "", page: int = 1):
 
     offset = (page - 1) * per_page
 
-    # ===================================================
-    # มีการค้นหา
-    # ===================================================
+    # =========================================
+    # Search + Filter
+    # =========================================
+
+    conditions = []
+    params = []
+
+    # -----------------------------------------
+    # Search
+    # -----------------------------------------
+
     if q:
 
         keyword = f"%{q}%"
 
-        # นับจำนวนข้อมูลทั้งหมด
-        cursor.execute(
-            """
-            SELECT COUNT(*)
-            FROM characters
-            WHERE
+        conditions.append("""
+            (
                 name LIKE ?
                 OR title LIKE ?
                 OR race LIKE ?
                 OR home LIKE ?
                 OR relationship LIKE ?
                 OR description LIKE ?
-        """,
-            (keyword, keyword, keyword, keyword, keyword, keyword),
+            )
+            """)
+
+        params.extend(
+            [
+                keyword,
+                keyword,
+                keyword,
+                keyword,
+                keyword,
+                keyword,
+            ]
         )
 
-        total_characters = cursor.fetchone()[0]
+    # -----------------------------------------
+    # Filter: Race
+    # -----------------------------------------
 
-        # ดึงข้อมูลเฉพาะหน้าที่ต้องการ
-        cursor.execute(
-            """
-            SELECT *
-            FROM characters
-            WHERE
-                name LIKE ?
-                OR title LIKE ?
-                OR race LIKE ?
-                OR home LIKE ?
-                OR relationship LIKE ?
-                OR description LIKE ?
-            ORDER BY id
-            LIMIT ?
-            OFFSET ?
-        """,
-            (keyword, keyword, keyword, keyword, keyword, keyword, per_page, offset),
-        )
+    if race:
 
-    # ===================================================
-    # ไม่มีการค้นหา
-    # ===================================================
+        conditions.append("race = ?")
+        params.append(race)
+
+    # -----------------------------------------
+    # Filter: Home
+    # -----------------------------------------
+
+    if home:
+
+        conditions.append("home = ?")
+        params.append(home)
+
+    # -----------------------------------------
+    # Filter: Title
+    # -----------------------------------------
+
+    if title:
+
+        conditions.append("title = ?")
+        params.append(title)
+
+    # =========================================
+    # WHERE
+    # =========================================
+
+    if conditions:
+
+        where_clause = "WHERE " + " AND ".join(conditions)
+
     else:
 
-        # นับจำนวนตัวละครทั้งหมด
-        cursor.execute("""
-            SELECT COUNT(*)
-            FROM characters
-        """)
+        where_clause = ""
 
-        total_characters = cursor.fetchone()[0]
+    # =========================================
+    # COUNT
+    # =========================================
 
-        # ดึงข้อมูลเฉพาะหน้าปัจจุบัน
-        cursor.execute(
-            """
-            SELECT *
-            FROM characters
-            ORDER BY id
-            LIMIT ?
-            OFFSET ?
+    cursor.execute(
+        f"""
+        SELECT COUNT(*)
+        FROM characters
+        {where_clause}
         """,
-            (per_page, offset),
-        )
+        params,
+    )
+
+    total_characters = cursor.fetchone()[0]
+
+    # =========================================
+    # GET CHARACTERS
+    # =========================================
+
+    cursor.execute(
+        f"""
+        SELECT *
+        FROM characters
+        {where_clause}
+        ORDER BY id
+        LIMIT ?
+        OFFSET ?
+        """,
+        params + [per_page, offset],
+    )
 
     characters = cursor.fetchall()
 
+    # =========================================
+    # ดึงข้อมูล Filter จาก Database
+    # =========================================
+
+    cursor.execute("""
+    SELECT DISTINCT race
+    FROM characters
+    WHERE race IS NOT NULL
+    AND race != ''
+    ORDER BY race
+    """)
+
+    races = [row[0] for row in cursor.fetchall()]
+
+    cursor.execute("""
+    SELECT DISTINCT home
+    FROM characters
+    WHERE home IS NOT NULL
+    AND home != ''
+    ORDER BY home
+    """)
+
+    homes = [row[0] for row in cursor.fetchall()]
+
+    cursor.execute("""
+    SELECT DISTINCT title
+    FROM characters
+    WHERE title IS NOT NULL
+    AND title != ''
+    ORDER BY title
+    """)
+
+    titles = [row[0] for row in cursor.fetchall()]
+
+    # =========================================
+    # CLOSE DATABASE
+    # =========================================
+
     conn.close()
 
-    # คำนวณจำนวนหน้า
-    total_pages = math.ceil(total_characters / per_page)
+    # =========================================
+    # CLOSE DATABASE
+    # =========================================
+
+    conn.close()
+
+    # =========================================
+    # TOTAL PAGES
+    # =========================================
+
+    total_pages = (total_characters + per_page - 1) // per_page
+
+    # =========================================
+    # TEMPLATE
+    # =========================================
 
     return templates.TemplateResponse(
         request=request,
@@ -132,6 +229,12 @@ async def codex(request: Request, q: str = "", page: int = 1):
             "query": q,
             "page": page,
             "total_pages": total_pages,
+            "race": race,
+            "home": home,
+            "title": title,
+            "races": races,
+            "homes": homes,
+            "titles": titles
         },
     )
 
