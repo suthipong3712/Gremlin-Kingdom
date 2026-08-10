@@ -838,6 +838,166 @@ nav a.active::after {
 }
 
 /* =========================================
+   CODEX FILTER
+========================================= */
+
+.filter-box {
+    width: 100%;
+    max-width: 1000px;
+    margin: 30px auto 50px;
+    padding: 25px;
+
+    background: rgba(16, 32, 23, 0.85);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.25),
+        0 0 25px rgba(34, 197, 94, 0.08);
+
+    backdrop-filter: blur(10px);
+}
+
+
+/* -----------------------------------------
+   Filter Form
+----------------------------------------- */
+
+.filter-box form {
+    display: grid;
+
+    grid-template-columns:
+        2fr
+        1fr
+        1fr
+        1fr
+        auto;
+
+    gap: 15px;
+
+    align-items: center;
+}
+
+
+/* -----------------------------------------
+   Search Input
+----------------------------------------- */
+
+.filter-box input {
+    width: 100%;
+
+    padding: 16px 20px;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background: #0d1d13;
+
+    color: white;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+
+    transition: .25s;
+}
+
+
+.filter-box input::placeholder {
+    color: #9ca3af;
+}
+
+
+.filter-box input:focus {
+    outline: none;
+
+    border-color: #22c55e;
+
+    box-shadow:
+        0 0 18px rgba(34, 197, 94, 0.25);
+}
+
+
+/* -----------------------------------------
+   Dropdown
+----------------------------------------- */
+
+.filter-box select {
+    width: 100%;
+
+    padding: 16px 18px;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background: #0d1d13;
+
+    color: white;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+
+.filter-box select:hover {
+    border-color: rgba(34, 197, 94, 0.5);
+}
+
+
+.filter-box select:focus {
+    outline: none;
+
+    border-color: #22c55e;
+
+    box-shadow:
+        0 0 18px rgba(34, 197, 94, 0.25);
+}
+
+
+/* -----------------------------------------
+   Search Button
+----------------------------------------- */
+
+.filter-box button {
+    padding: 16px 24px;
+
+    border-radius: 12px;
+
+    border: none;
+
+    background: #22c55e;
+
+    color: white;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: .25s;
+}
+
+
+.filter-box button:hover {
+    background: #2be86d;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(34, 197, 94, 0.25);
+}
+
+/* =========================================
    CODEX PAGINATION
 ========================================= */
 .pagination {
@@ -1086,4 +1246,50 @@ a.page-btn:hover {
     .character-summary .info-card {
         text-align: left;
     }
+}
+
+/* =========================================
+   CODEX FILTER - MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .filter-box {
+        width: 92%;
+        padding: 20px;
+    }
+
+    .filter-box form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .filter-box input {
+        grid-column: 1 / -1;
+    }
+
+    .filter-box button {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .filter-box {
+        width: 94%;
+        padding: 18px;
+    }
+
+    .filter-box form {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-box input,
+    .filter-box select,
+    .filter-box button {
+        grid-column: auto;
+        width: 100%;
+    }
+
 }
