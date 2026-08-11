@@ -9,6 +9,22 @@ from database import get_connection
 import os
 import shutil
 import math
+# =========================================
+# GREMLIN KINGDOM - CHARACTER OPTIONS
+# =========================================
+
+RACE_OPTIONS = [
+    "ปีศาจน้อย",
+    "เป็ด",
+    "เอเลี่ยน",
+    "อื่น ๆ",
+]
+
+HOME_OPTIONS = [
+    "ราชวัง",
+    "เมืองด้านหน้า",
+    "เมืองด้านหลัง",
+]
 
 app = FastAPI()
 
