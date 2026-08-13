@@ -36,11 +36,21 @@ Admin
     <form action="/add-character" method="post" enctype="multipart/form-data" class="admin-form">
         <input type="text" name="name" placeholder="ชื่อ" required>
         <input type="text" name="title" placeholder="ตำแหน่ง">
-        <input type="text" name="race" placeholder="เผ่าพันธ์">
+        <select name="race" required>
+            <option value="" disabled selected>🐾 เลือกเผ่าพันธุ์ </option>
+            {% for race in race_options %}
+            <option value="{{race}}">{{race}}</option>
+            {%endfor%}
+        </select>
         <input type="number" name="age" placeholder="อายุ">
         <textarea name="description" rows="5" placeholder="ประวัติโดยย่อ"></textarea>
         <input type="file" name="image" accept="image/*">
-        <input type="text" name="home" placeholder="บ้าน">
+        <select name="home" required>
+            <option value="" disabled selected>🏠 เลือกบ้าน</option>
+            {% for home in home_options %}
+            <option value="{{home}}">{{home}}</option>
+            {%endfor%}
+        </select>
         <input type="text" name="relationship" placeholder="ความสัมพันธ์">
         <button type="submit"> 💾 บันทึกตัวละคร </button>
     </form>

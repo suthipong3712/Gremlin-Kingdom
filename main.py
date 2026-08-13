@@ -9,6 +9,7 @@ from database import get_connection
 import os
 import shutil
 import math
+
 # =========================================
 # GREMLIN KINGDOM - CHARACTER OPTIONS
 # =========================================
@@ -250,7 +251,7 @@ async def codex(
             "title": title,
             "races": races,
             "homes": homes,
-            "titles": titles
+            "titles": titles,
         },
     )
 
@@ -292,7 +293,13 @@ async def admin(request: Request):
     conn.close()
 
     return templates.TemplateResponse(
-        request=request, name="admin.html", context={"characters": characters}
+        request=request,
+        name="admin.html",
+        context={
+            "characters": characters,
+            "race_options": RACE_OPTIONS,
+            "home_options": HOME_OPTIONS,
+        },
     )
 
 
@@ -311,8 +318,14 @@ async def edit_character(request: Request, character_id: int):
     character = cursor.fetchone()
     conn.close()
     return templates.TemplateResponse(
-        request=request, name="edit_character.html", context={"character": character}
-    )
+    request=request,
+    name="edit_character.html",
+    context={
+        "character": character,
+        "race_options": RACE_OPTIONS,
+        "home_options": HOME_OPTIONS,
+    }
+)
 
 
 @app.post("/update-character/{character_id}")

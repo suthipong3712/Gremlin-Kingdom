@@ -1551,3 +1551,49 @@ a.page-btn:hover {
     }
 
 }
+
+/* =========================================
+   ADMIN FORM - SELECT DROPDOWN
+   ========================================= */
+
+.admin-form select {
+    width: 100%;
+    padding: 14px 16px;
+
+    background: rgba(15, 23, 42, 0.35);
+    color: #f8fafc;
+
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    border-radius: 12px;
+
+    font-size: 16px;
+    font-family: inherit;
+
+    outline: none;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+    appearance: auto;
+}
+
+/* ตอนเอาเมาส์ไปวาง */
+.admin-form select:hover {
+    border-color: rgba(34, 197, 94, 0.75);
+}
+
+/* ตอนกดเลือก */
+.admin-form select:focus {
+    border-color: #22c55e;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.15),
+        0 0 20px rgba(34, 197, 94, 0.15);
+}
+
+/* รายการใน Dropdown */
+.admin-form select option {
+    background: #0f172a;
+    color: #f8fafc;
+
+    padding: 10px;
+}
