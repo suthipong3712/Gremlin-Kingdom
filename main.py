@@ -186,26 +186,9 @@ async def codex(
     # ดึงข้อมูล Filter จาก Database
     # =========================================
 
-    cursor.execute("""
-    SELECT DISTINCT race
-    FROM characters
-    WHERE race IS NOT NULL
-    AND race != ''
-    ORDER BY race
-    """)
-
-    races = [row[0] for row in cursor.fetchall()]
-
-    cursor.execute("""
-    SELECT DISTINCT home
-    FROM characters
-    WHERE home IS NOT NULL
-    AND home != ''
-    ORDER BY home
-    """)
-
-    homes = [row[0] for row in cursor.fetchall()]
-
+    races = RACE_OPTIONS
+    homes = HOME_OPTIONS
+    
     cursor.execute("""
     SELECT DISTINCT title
     FROM characters
@@ -226,7 +209,7 @@ async def codex(
     # CLOSE DATABASE
     # =========================================
 
-    conn.close()
+    
 
     # =========================================
     # TOTAL PAGES
