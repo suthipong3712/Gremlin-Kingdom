@@ -163,7 +163,13 @@ async def codex(
     )
 
     total_characters = cursor.fetchone()[0]
+    
+    cursor.execute("""
+        SELECT COUNT(*)
+        FROM characters
+    """)
 
+    all_characters = cursor.fetchone()[0]
     # =========================================
     # GET CHARACTERS
     # =========================================
@@ -235,6 +241,8 @@ async def codex(
             "races": races,
             "homes": homes,
             "titles": titles,
+            "total_characters": total_characters,
+            "all_characters": all_characters,
         },
     )
 

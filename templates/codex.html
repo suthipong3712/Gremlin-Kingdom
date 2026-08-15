@@ -72,28 +72,89 @@
                 🔎 ค้นหา
             </button>
 
+            <a href="/codex" class="clear-filter-btn">
+                ✕ ล้างตัวกรอง
+            </a>
+
         </form>
 
     </div>
+    <div class="codex-result-info">
+
+        📚 พบตัวละคร
+        <strong>{{ total_characters }}</strong>
+        ตัว
+
+        {% if query or race or home or title %}
+        <span>จากทั้งหมด {{ all_characters }} ตัว</span>
+        {% endif %}
+
+    </div>
+    {% if characters %}
 
     <div class="card-container">
 
-        {%for character in characters%}
+        {% for character in characters %}
+
         <div class="character-card">
+
             <div class="rarity">👑 LEGENDARY</div>
-            <img src="{{character['image']}}" alt="{{character['name']}}">
-            <h2>{{character["name"]}}</h2>
-            <h3>{{character["title"]}}</h3>
-            <p><strong>เผ่าพันธ์:</strong> {{character["race"]}}</p>
-            <p><strong>อายุ:</strong>{{character["age"]}} </p>
-            <p>{{character["description"]}}</p>
-            <a href="/character/{{character['id']}}" class="profile-btn">
+
+            <img src="{{ character['image'] }}" alt="{{ character['name'] }}">
+
+            <h2>{{ character["name"] }}</h2>
+
+            <h3>{{ character["title"] }}</h3>
+
+            <p>
+                <strong>เผ่าพันธุ์:</strong>
+                {{ character["race"] }}
+            </p>
+
+            <p>
+                <strong>อายุ:</strong>
+                {{ character["age"] }}
+            </p>
+
+            <p>{{ character["description"] }}</p>
+
+            <a href="/character/{{ character['id'] }}" class="profile-btn">
                 View Profile →
             </a>
+
         </div>
-        {%endfor%}
+
+        {% endfor %}
 
     </div>
+
+    {% else %}
+
+    <div class="codex-empty">
+
+        <div class="empty-icon">
+            🔍
+        </div>
+
+        <h2>
+            ไม่พบตัวละคร
+        </h2>
+
+        <p>
+            ไม่พบตัวละครที่ตรงกับเงื่อนไข
+        </p>
+
+        <p>
+            ลองเปลี่ยนคำค้นหาหรือตัวกรองดูอีกครั้ง
+        </p>
+
+        <a href="/codex" class="clear-filter-btn">
+            ✕ ล้างตัวกรอง
+        </a>
+
+    </div>
+
+    {% endif %}
 
     <!-- Pagination ด้านล่าง -->
     <div class="pagination">
