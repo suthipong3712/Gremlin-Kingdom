@@ -27,6 +27,18 @@ HOME_OPTIONS = [
     "เมืองด้านหลัง",
 ]
 
+
+def validate_character_data(race, home):
+
+    if race not in RACE_OPTIONS:
+        return False, "เผ่าพันธุ์ไม่ถูกต้อง"
+
+    if home not in HOME_OPTIONS:
+        return False, "บ้านไม่ถูกต้อง"
+
+    return True, ""
+
+
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -163,7 +175,7 @@ async def codex(
     )
 
     total_characters = cursor.fetchone()[0]
-    
+
     cursor.execute("""
         SELECT COUNT(*)
         FROM characters
@@ -194,7 +206,7 @@ async def codex(
 
     races = RACE_OPTIONS
     homes = HOME_OPTIONS
-    
+
     cursor.execute("""
     SELECT DISTINCT title
     FROM characters
@@ -214,8 +226,6 @@ async def codex(
     # =========================================
     # CLOSE DATABASE
     # =========================================
-
-    
 
     # =========================================
     # TOTAL PAGES
@@ -268,7 +278,7 @@ async def gallery(request: Request):
 
 
 @app.get("/admin")
-async def admin(request: Request):
+async def admin(request: Request,error: str = "",):
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -284,14 +294,13 @@ async def admin(request: Request):
     conn.close()
 
     return templates.TemplateResponse(
-        request=request,
-        name="admin.html",
-        context={
-            "characters": characters,
-            "race_options": RACE_OPTIONS,
-            "home_options": HOME_OPTIONS,
-        },
-    )
+    request=request,
+    name="admin.html",
+    context={
+        "characters": characters,
+        "error": error,
+    },
+)
 
 
 @app.get("/edit-character/{character_id}")
@@ -309,14 +318,14 @@ async def edit_character(request: Request, character_id: int):
     character = cursor.fetchone()
     conn.close()
     return templates.TemplateResponse(
-    request=request,
-    name="edit_character.html",
-    context={
-        "character": character,
-        "race_options": RACE_OPTIONS,
-        "home_options": HOME_OPTIONS,
-    }
-)
+        request=request,
+        name="edit_character.html",
+        context={
+            "character": character,
+            "race_options": RACE_OPTIONS,
+            "home_options": HOME_OPTIONS,
+        },
+    )
 
 
 @app.post("/update-character/{character_id}")
@@ -331,7 +340,9 @@ async def update_character(
     description: str = Form(""),
     image: UploadFile | None = File(None),
 ):
-
+    valid, error_message = validate_character_data(race, home)
+    if not valid:
+        return RedirectResponse(url=f"/edit-character/{character_id}", status_code=303)
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -432,29 +443,51 @@ async def add_character(
     description: str = Form(""),
     image: UploadFile = File(...),
 ):
+
+    # -----------------------------------------
+    # 🛡️ ตรวจสอบ Race + Home
+    # -----------------------------------------
+
+    valid, error_message = validate_character_data(race, home)
+
+    if not valid:
+        return RedirectResponse(url=f"/admin?error={error_message}", status_code=303)
+
+    # -----------------------------------------
+    # 🖼️ เตรียมรูปภาพ
+    # -----------------------------------------
+
     filename = image.filename
-    filepath = os.path.join("static", "images", "characters", filename)
+
     os.makedirs("static/images/characters", exist_ok=True)
+
+    filepath = os.path.join("static", "images", "characters", filename)
 
     with open(filepath, "wb") as buffer:
         shutil.copyfileobj(image.file, buffer)
 
-    conn = get_connection()
+    # -----------------------------------------
+    # 💾 บันทึกลง Database
+    # -----------------------------------------
 
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute(
         """
-
-    INSERT INTO characters
-
-    (name,title,race,age,home,relationship,description,image)
-
-    VALUES
-
-    (?,?,?,?,?,?,?,?)
-
-    """,
+        INSERT INTO characters
+        (
+            name,
+            title,
+            race,
+            age,
+            home,
+            relationship,
+            description,
+            image
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
         (
             name,
             title,
@@ -468,8 +501,11 @@ async def add_character(
     )
 
     conn.commit()
-
     conn.close()
+
+    # -----------------------------------------
+    # 🔄 กลับไป Codex
+    # -----------------------------------------
 
     return RedirectResponse("/codex", status_code=303)
 

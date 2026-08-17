@@ -5,6 +5,13 @@ Admin
 {%endblock%}
 
 {%block content%}
+{% if error %}
+
+<div class="admin-error">
+    ⚠️ {{ error }}
+</div>
+
+{% endif %}
 
 <section class="characters">
     <div class="section-title">
