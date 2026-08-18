@@ -1865,4 +1865,6 @@ a.page-btn:hover {
 
     box-shadow:
         0 0 20px rgba(239, 68, 68, 0.08);
+
+    transition: opacity 0.5s ease;
 }

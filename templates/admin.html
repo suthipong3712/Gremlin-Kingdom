@@ -12,7 +12,24 @@ Admin
 </div>
 
 {% endif %}
+{% if error %}
 
+<script>
+    setTimeout(function () {
+        const errorBox = document.querySelector(".admin-error");
+
+        if (errorBox) {
+            errorBox.style.opacity = "0";
+
+            setTimeout(function () {
+                errorBox.remove();
+            }, 500);
+        }
+
+    }, 4000);
+</script>
+
+{% endif %}
 <section class="characters">
     <div class="section-title">
         <div class="dashboard">

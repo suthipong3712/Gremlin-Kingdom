@@ -431,6 +431,58 @@ async def update_character(
 
     return RedirectResponse(url=f"/character/{character_id}", status_code=303)
 
+@app.post("/delete-character/{character_id}")
+async def delete_character(character_id: int):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # -----------------------------------------
+    # ตรวจสอบว่าตัวละครมีอยู่จริง
+    # -----------------------------------------
+
+    cursor.execute(
+        """
+        SELECT id
+        FROM characters
+        WHERE id = ?
+        """,
+        (character_id,),
+    )
+
+    character = cursor.fetchone()
+
+    if character is None:
+        conn.close()
+
+        return RedirectResponse(
+            url="/admin",
+            status_code=303
+        )
+
+    # -----------------------------------------
+    # ลบตัวละคร
+    # -----------------------------------------
+
+    cursor.execute(
+        """
+        DELETE FROM characters
+        WHERE id = ?
+        """,
+        (character_id,),
+    )
+
+    conn.commit()
+    conn.close()
+
+    # -----------------------------------------
+    # กลับหน้า Admin
+    # -----------------------------------------
+
+    return RedirectResponse(
+        url="/admin",
+        status_code=303
+    )
 
 @app.post("/add-character")
 async def add_character(
